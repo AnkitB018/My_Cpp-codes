@@ -23,6 +23,7 @@ class max_heap{
 
         void create(vector<int>a){ // this will clear out existing heap and build a new one
             heap.clear();
+            heap.push_back(-1);
             for(int i=0 ; i<a.size() ; i++){
                 insert(a[i]);
             }
@@ -86,24 +87,73 @@ class max_heap{
             heap.clear();
             cout<<"Entire heap cleared! "<<endl;
         }
+
+        void heapify(int i){
+            int j = 2*i;
+            int n = heap.size()-1;
+            int temp;
+            if(j<=n){
+                if(j+1<=n){
+                    if(heap[j]<heap[j+1]){
+                        j = j+1;
+                    }
+                }
+                if(heap[j]>heap[i]){
+                    temp = heap[i];
+                    heap[i] = heap[j];
+                    heap[j] = temp;
+                    heapify(j);
+                }
+            }
+
+        }
+
+        void heapify_create_heap(vector<int>a){ //create new heap in O(N) time
+            for(auto &x:a){
+                heap.push_back(x);
+            }
+            int n = heap.size()-1;
+            for(int i = n/2 ; i>=1 ; i--){
+                heapify(i);
+            }
+        }
         
+        void merge(max_heap h){ //merge takes O(N) time
+            for(int i=1 ; i<h.heap.size() ; i++){
+                heap.push_back(h.heap[i]);
+            }
+            int n = heap.size()-1;
+            for(int i = n/2 ; i>=1 ; i--){
+                heapify(i);
+            }
+        }
+
 };
 
 
 int main(){
     max_heap h1;
-    vector<int> a = {1,4,2,7,40,18,9,10,12,34,23,21};
+    vector<int> a = {100,12,5,16,8};
     h1.create(a);
     h1.disp_heap_array();
-    h1.Delete_max();
-    h1.disp_heap_array();
-    max_heap h2;
-    h2.heap_sort(a);
-    for(int i=0 ; i<a.size(); i++){
-        cout<<a[i]<<"  ";
-    }
-    cout<<endl;
 
+    //h1.Delete_max();
+    //h1.disp_heap_array();
+    //max_heap h2;
+    //h2.heap_sort(a);
+    //for(int i=0 ; i<a.size(); i++){
+    //    cout<<a[i]<<"  ";
+    //}
+    //cout<<endl;
+
+    vector<int> a1 = {1,11,6,19,7,34,55,21};
+    max_heap h3;
+    h3.heapify_create_heap(a1);
+    h3.disp_heap_array();
+
+    h1.merge(h3);
+    h1.disp_heap_array();
 
     return 0;
+    //perfect
 }
