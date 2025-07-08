@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<queue>
 using namespace std;
 
 
@@ -74,10 +75,36 @@ int kruskal_MCST(vector<vector<int>>edges, int n){ //without using heap in O(n.e
 
 }
 
+int kruskal_MCST_using_heap(vector<vector<int>>edges, int n){
+        auto cmp = [](const vector<int>&a, const vector<int>&b){
+            return a[2]>b[2];
+        };
+        priority_queue<vector<int>, vector<vector<int>>,decltype(cmp)>min_heap(cmp, edges);
+        int total_cost=0;
+        int edge_count=0;
+        disjoint_set ds(n+1);
+        while(edge_count<n-1){
+            int i = min_heap.top()[0];
+            int j= min_heap.top()[1];
+            int cost = min_heap.top()[2];
+            min_heap.pop();
+            if(ds.find(i) == ds.find(j)){
+                continue;
+            }
+            ds.Union(i, j);
+            total_cost +=cost;
+            edge_count++;
+        }
+
+        return total_cost;
+}
+
 int main(){
     vector<vector<int>> edges = {{1,2,28},{1,6,10},{2,3,16},{2,7,14},{3,4,12},{4,5,22},{4,7,18},{5,6,25},{5,7,24}};
     int min_cost = kruskal_MCST(edges, 7);
-    cout<<min_cost;
+    int min_cost1 = kruskal_MCST_using_heap(edges, 7);
+    cout<<min_cost<<endl;
+    cout<<min_cost1<<endl;
     
 return 0;
 
