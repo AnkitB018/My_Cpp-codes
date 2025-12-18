@@ -2,11 +2,11 @@
 using namespace std;
 
 template <class T=char>
-class vector{
+class vec{
     T *arr;
     int size;
     public:
-        vector(int m){
+        vec(int m){
             this->size =m;
             arr = new T[size];
         }
@@ -31,7 +31,7 @@ class some{
 };
 
 int main(){
-    vector <float> a(3);
+    vec <float> a(3);
     a.set_data();
     float ans = a.add_data();
     cout<<"addtion of all the elements is: "<<ans;
