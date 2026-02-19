@@ -1,18 +1,18 @@
 #include<iostream>
 using namespace std;
 
-class stack{
+class stack_test{
     int size;
     int top;
     int *arr;
     public:
-        stack(int size){
+        stack_test(int size){
             this->size = size;
             top = -1;
             arr = new int[size];
         }
 
-        ~stack(){
+        ~stack_test(){
             delete []arr;
         }
 
@@ -65,7 +65,7 @@ class stack{
 
 int main(){
     
-    stack s1(5);
+    stack_test s1(5);
     s1.push(1);
     s1.push(2);
     cout<<s1.pop()<<endl;

@@ -11,20 +11,20 @@ class Node{
         Node *right;
 };
 
-class queue{
+class local_queue{
     int size;
     int front;
     int rear;
     Node **arr;
 
     public:
-        queue(int s = 10){
+        local_queue(int s = 10){
             this->size = s;
             front = -1;
             rear = -1;
             arr = new Node*[s];
         }
-        ~queue(){
+        ~local_queue(){
             delete []arr;
         }
 
@@ -81,7 +81,7 @@ class tree{
         
         void create(){
             Node *t,*p;
-            queue q;
+            local_queue q;
             int val;
             cout<<"Enter value of root node"<<endl;
             cin>>val;
@@ -177,7 +177,7 @@ class tree{
 
         void levelorder(){
             Node *p;
-            queue q;
+            local_queue q;
             cout<<root->data<<"  ";
             q.enqueue(root);
             while(!q.isempty()){
