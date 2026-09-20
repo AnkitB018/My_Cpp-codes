@@ -4,3 +4,4 @@ Threading/
 *prac*
 *.exe
 .DS_STORE
+*.out
